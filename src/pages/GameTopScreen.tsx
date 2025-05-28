@@ -16,6 +16,13 @@ const GameTopScreen: React.FC = () => {
     const history = useHistory();
     useAutoMoney();
 
+    const addOfflineEarnings = useMoneyStore((s) => s.addOfflineEarnings);
+    const updateTimestamp = useMoneyStore((s) => s.updateTimestamp);
+    useEffect(() => {
+        addOfflineEarnings();   // 差分加算
+        updateTimestamp();      // タイムスタンプ更新
+    }, []);
+
     const money = useMoneyStore((state) => state.money);
     return (
         <IonPage>
@@ -63,3 +70,4 @@ const GameTopScreen: React.FC = () => {
 };
 
 export default GameTopScreen;
+
