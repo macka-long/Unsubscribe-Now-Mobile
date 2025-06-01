@@ -33,6 +33,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import GameDescription from './pages/GameDescription';
+import StageSelect from './pages/StageSelect';
 
 setupIonicReact();
 
@@ -48,6 +49,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/description">
           <GameDescription />
+        </Route>
+        <Route exact path="/stages">
+          <StageSelect />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

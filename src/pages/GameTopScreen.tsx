@@ -24,6 +24,7 @@ const GameTopScreen: React.FC = () => {
     }, []);
 
     const money = useMoneyStore((state) => state.money);
+    const resetMoney = useMoneyStore((state) => state.resetMoney);
     return (
         <IonPage>
             <IonContent className="ion-padding" fullscreen>
@@ -42,6 +43,9 @@ const GameTopScreen: React.FC = () => {
                         <ul>
                             <li>5分経過で5,000円貯まります</li>
                             <li>最大は50,000円です</li>
+                            <IonText color="primary" onClick={resetMoney} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+                            (デバッグ用)所持金リセット
+                            </IonText>
                         </ul>
                     </IonCardContent>
                 </IonCard>
