@@ -1,2 +1,8 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+@font-face {
+  font-family: 'MyFont';
+  src: url('../assets/fonts/玉ねぎ楷書激無料版v7改.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
