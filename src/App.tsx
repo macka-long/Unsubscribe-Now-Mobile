@@ -34,28 +34,37 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 import GameDescription from './pages/GameDescription';
 import StageSelect from './pages/StageSelect';
+import { useEffect } from 'react';
+import { AdMob } from '@capacitor-community/admob';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <GameTopScreen />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-        <Route exact path="/description">
-          <GameDescription />
-        </Route>
-        <Route exact path="/stages">
-          <StageSelect />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+
+const App: React.FC = () => {
+
+  useEffect(() => {
+    AdMob.initialize();
+  }, []);
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route exact path="/home">
+            <GameTopScreen />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/home" />
+          </Route>
+          <Route exact path="/description">
+            <GameDescription />
+          </Route>
+          <Route exact path="/stages">
+            <StageSelect />
+          </Route>
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  )
+};
 
 export default App;

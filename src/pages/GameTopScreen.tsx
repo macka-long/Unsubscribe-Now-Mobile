@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useMoneyStore } from '../store/moneyStore';
 import useAutoMoney from '../hooks/useAutoMoney';
+import AdBanner from '../components/AdBanner';
 
 const GameTopScreen: React.FC = () => {
     const history = useHistory();
@@ -68,6 +69,7 @@ const GameTopScreen: React.FC = () => {
                         所持金を追加する
                     </IonText>
                 </div>
+                <AdBanner /> {/* バナー表示 */}
             </IonContent>
         </IonPage>
     );
