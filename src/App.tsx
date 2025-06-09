@@ -36,6 +36,8 @@ import GameDescription from './pages/GameDescription';
 import StageSelect from './pages/StageSelect';
 import { useEffect } from 'react';
 import { AdMob } from '@capacitor-community/admob';
+import RegisterPage from './pages/Register';
+import TermsPage from './pages/Terms';
 
 setupIonicReact();
 
@@ -60,6 +62,12 @@ const App: React.FC = () => {
           </Route>
           <Route exact path="/stages">
             <StageSelect />
+          </Route>
+          <Route exact path="/register">
+            <RegisterPage />
+          </Route>
+          <Route exact path="/terms">
+            <TermsPage />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>

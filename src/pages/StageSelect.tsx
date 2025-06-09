@@ -8,22 +8,24 @@ import {
 } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Stage } from '../types/stage';
+import stagesJson from '../data/stages.json';
 
 // 仮のステージ定義（後で JSON 読み込みに置き換え）
 const stageData = Array.from({ length: 20 }, (_, i) => ({ id: i + 1 }));
 
 const StageSelect: React.FC = () => {
   const history = useHistory();
-  const [stages, setStages] = useState(stageData); // 将来的には外部から読み込み
+  const [stages, setStages] = useState<Stage[]>(stagesJson);
 
-  const handleSelect = (stageId: number) => {
-    history.push(`/stage/${stageId}`);
+  const handleSelect = (stage: Stage) => {
+    history.push('/register', { stage }); // RegisterPage へステージ情報を渡す
   };
 
   return (
     <IonPage>
       <IonContent className="ion-padding">
-        <h1 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '1rem', fontFamily: 'MyFont'  }}>
+        <h1 style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '1rem', fontFamily: 'MyFont' }}>
           ステージ選択
         </h1>
 
@@ -33,7 +35,7 @@ const StageSelect: React.FC = () => {
               {stages.slice(rowIndex * 5, rowIndex * 5 + 5).map((stage) => (
                 <IonCol key={stage.id} size="2.4" style={{ display: 'flex', justifyContent: 'center' }}>
                   <div
-                    onClick={() => handleSelect(stage.id)}
+                    onClick={() => handleSelect(stage)}
                     style={{
                       width: '50px',
                       height: '50px',
