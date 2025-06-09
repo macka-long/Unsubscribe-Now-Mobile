@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "title": "サイトA",
+    "genre": "漫画",
+    "theme": "pop",
+    "ratePerSecond": 100,
+    "stepSequence": ["register", "pageA", "pageB", "complete"]
+  },
+  {
+    "id": 2,
+    "title": "動画無限地獄",
+    "genre": "動画",
+    "theme": "dark",
+    "ratePerSecond": 150,
+    "stepSequence": ["register", "pageX", "confirm", "complete"]
+  }
+]
