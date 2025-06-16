@@ -10,16 +10,16 @@ import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Stage } from '../types/stage';
 import stagesJson from '../data/stages.json';
-
-// 仮のステージ定義（後で JSON 読み込みに置き換え）
-const stageData = Array.from({ length: 20 }, (_, i) => ({ id: i + 1 }));
+import { useStageStore } from '../store/stageStore';
 
 const StageSelect: React.FC = () => {
   const history = useHistory();
   const [stages, setStages] = useState<Stage[]>(stagesJson);
-
+  const loadStage = useStageStore((s) => s.loadStage);
+  
   const handleSelect = (stage: Stage) => {
-    history.push('/register', { stage }); // RegisterPage へステージ情報を渡す
+    loadStage(stage);
+    history.push('/register'); // RegisterPage へステージ情報を渡す
   };
 
   return (
