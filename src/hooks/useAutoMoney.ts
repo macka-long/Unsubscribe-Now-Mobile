@@ -18,4 +18,6 @@ const useAutoMoney = () => {
   }, []); // 一度だけ実行（マウント時）
 };
 
+
+
 export default useAutoMoney;

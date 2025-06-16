@@ -1,23 +1,52 @@
 import {
   IonPage,
   IonContent,
-  IonText
+  IonText,
+  IonButtons,
+  IonBackButton,
+  IonToolbar,
+  IonHeader
 } from '@ionic/react';
 import { useHistory, useLocation } from 'react-router-dom';
+import CurrentMoneyDisplay from '../components/CurrentMoneyDisplay';
+import CustomBackButton from '../components/CustomBackButton';
 
 interface LocationState {
   ratePerSecond: number;
   siteName?: string;
+  isStarted: boolean;
 }
 
 const TermsPage: React.FC = () => {
-  const history = useHistory();
   const location = useLocation<LocationState>();
   const rate = location.state?.ratePerSecond ?? 0;
   const siteName = location.state?.siteName ?? 'サイト名';
+  const isStarted = location.state?.isStarted ?? false;
+  const history = useHistory();
+
+  const handleBack = () => {
+    history.goBack();
+  };
 
   return (
     <IonPage>
+      {isStarted && <div style={{
+        position: 'fixed',
+        top: 16,
+        right: 16,
+        zIndex: 9999,
+        pointerEvents: 'none' // ← これでUI邪魔しない
+      }}>
+        <CurrentMoneyDisplay />
+      </div>
+      }
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <CustomBackButton handleBack={handleBack} />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
       <IonContent className="ion-padding">
         <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>{siteName}</h2>
         <h3 style={{ color: 'green', fontWeight: 'bold', fontSize: '1.25rem', marginBottom: '1rem' }}>
@@ -35,7 +64,7 @@ const TermsPage: React.FC = () => {
           <li>本サイトの会員は本サイトが定める退会手続きを行うことで、退会をすることが可能です。</li>
         </ul>
 
-        <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+        {/* <div style={{ textAlign: 'center', marginTop: '2rem' }}>
           <IonText
             color="primary"
             style={{ textDecoration: 'underline', cursor: 'pointer' }}
@@ -43,7 +72,7 @@ const TermsPage: React.FC = () => {
           >
             戻る
           </IonText>
-        </div>
+        </div> */}
       </IonContent>
     </IonPage>
   );

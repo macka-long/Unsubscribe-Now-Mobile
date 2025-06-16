@@ -1,4 +1,4 @@
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, useLocation } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import GameTopScreen from './pages/GameTopScreen';
@@ -38,17 +38,34 @@ import { useEffect } from 'react';
 import { AdMob } from '@capacitor-community/admob';
 import RegisterPage from './pages/Register';
 import TermsPage from './pages/Terms';
+import StageRunner from './pages/StageRunner';
+import Contents from './pages/stagePages/Contents';
+import CurrentMoneyDisplay from './components/CurrentMoneyDisplay';
+import LoginPage from './pages/stagePages/LoginPage';
 
 setupIonicReact();
 
 
-const App: React.FC = () => {
+const AppInner: React.FC = () => {
 
+  // const location = useLocation();
+  // const isStageRelated = ['/stage-play', '/contents', '/terms', '/mypage'].some(p =>
+  //   location.pathname.startsWith(p)
+  // );
   useEffect(() => {
     AdMob.initialize();
   }, []);
   return (
     <IonApp>
+      {/* {isStageRelated && <div style={{
+        position: 'fixed',
+        top: 16,
+        right: 16,
+        zIndex: 9999,
+        pointerEvents: 'none' // ← これでUI邪魔しない
+      }}>
+        <CurrentMoneyDisplay />
+      </div>} ← ここがポイント */}
       <IonReactRouter>
         <IonRouterOutlet>
           <Route exact path="/home">
@@ -69,10 +86,27 @@ const App: React.FC = () => {
           <Route exact path="/terms">
             <TermsPage />
           </Route>
+          <Route exact path="/stage-play">
+            <StageRunner />
+          </Route>
+          <Route exact path="/contents">
+            <Contents />
+          </Route>
+          <Route exact path="/login-page">
+            <LoginPage />
+          </Route>
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
   )
 };
+
+const App: React.FC = () => (
+  <IonApp>
+    <IonReactRouter>
+      <AppInner />
+    </IonReactRouter>
+  </IonApp>
+);
 
 export default App;
