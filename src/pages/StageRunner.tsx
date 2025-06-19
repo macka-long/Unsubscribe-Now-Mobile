@@ -8,6 +8,8 @@ import CurrentMoneyDisplay from '../components/CurrentMoneyDisplay';
 import { pageComponentMap } from './stagePages/pageComponentMap';
 import { useStageStore } from '../store/stageStore';
 import useAutoDecreaseMoney from '../hooks/useDecreaseMoney';
+import { useGameStore } from '../store/GameStore';
+import { useTotalLoss } from '../hooks/useTotalLoss';
 
 const StageRunner: React.FC = () => {
   const history = useHistory();
@@ -16,20 +18,30 @@ const StageRunner: React.FC = () => {
   const currentIndex = useStageStore((s) => s.currentIndex);
   const goNext = useStageStore((s) => s.goNext);
 
+  const startGame = useGameStore((s) => s.startGame);
+  const endGame = useGameStore((s) => s.endGame);
+  const beforeStartMoney = useGameStore((s) => s.beforeStartMoney);
+
+  console.log("a");
+
   if (currentStage) {
+    startGame();
     useAutoDecreaseMoney(currentStage.ratePerSecond);
   } else {
     return <div>ステージ未ロード</div>;
   }
-
-  console.log("a");
 
   // 所持金が0になったら失敗画面へ
   useEffect(() => {
     const unsubscribe = useMoneyStore.subscribe(
       (s) => {
         if (s.money <= 0) {
-          history.replace('/result', { success: false });
+          endGame();
+          const totalLoss = useTotalLoss(beforeStartMoney);
+          history.replace('/result', {
+            isSuccess: false,
+            totalLoss: totalLoss,
+          });
         }
       }
     );
@@ -40,7 +52,12 @@ const StageRunner: React.FC = () => {
   const StepComponent = pageComponentMap[stepId];
 
   const goToResult = () => {
-    history.replace('/result', { success: true });
+    endGame();
+    const totalLoss = useTotalLoss(beforeStartMoney);
+    history.replace('/result', {
+      isSuccess: true,
+      totalLoss: totalLoss,
+    });
   };
 
   return (

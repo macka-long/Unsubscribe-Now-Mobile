@@ -11,6 +11,8 @@ import { Stage } from '../types/stage';
 import { useUserStore } from '../store/userStore';
 import { validateLoginId, validatePassword } from '../utils/validation';
 import { useStageStore } from '../store/stageStore';
+import { useGameStore } from '../store/GameStore';
+import { useMoneyStore } from '../store/moneyStore';
 
 const RegisterPage: React.FC = () => {
     const history = useHistory();
@@ -20,6 +22,8 @@ const RegisterPage: React.FC = () => {
     const { setCredentials } = useUserStore();
     const currentStage = useStageStore((s) => s.currentStage);
     const resetCurrentIndex = useStageStore((s) => s.resetCurrentINdex);
+    const setBeforeStartMoney = useGameStore((s) => s.setBeforeStartMoney);
+    const currentMoney = useMoneyStore((s) => s.money);
 
     const handleRegister = () => {
         if (!validateLoginId(loginId)) {
@@ -33,7 +37,11 @@ const RegisterPage: React.FC = () => {
         }
         if (loginId && password) {
             setCredentials(loginId, password);
+            
+            
+            setBeforeStartMoney(currentMoney);
             resetCurrentIndex();
+            
             history.push('/stage-play');
         }
     };

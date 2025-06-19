@@ -39,7 +39,7 @@ const Confirm: React.FC<PageComponentProps> = ({ onComplete }) => {
         <IonText
           color="primary"
           style={{ textDecoration: 'underline', cursor: 'pointer', fontSize: '0.9rem' }}
-          onClick={() => onComplete && onComplete()}
+          onClick={onComplete}
         >
           退会する
         </IonText>

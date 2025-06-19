@@ -18,4 +18,4 @@ include ':capacitor-status-bar'
 project(':capacitor-status-bar').projectDir = new File('../node_modules/@capacitor/status-bar/android')
 
 include ':native-ad-plugin'
-project(':native-ad-plugin').projectDir = new File('../native-ad-plugin/android')
+project(':native-ad-plugin').projectDir = new File('../node_modules/native-ad-plugin/android')

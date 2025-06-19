@@ -42,30 +42,17 @@ import StageRunner from './pages/StageRunner';
 import Contents from './pages/stagePages/Contents';
 import CurrentMoneyDisplay from './components/CurrentMoneyDisplay';
 import LoginPage from './pages/stagePages/LoginPage';
+import Result from './pages/Result';
 
 setupIonicReact();
 
 
 const AppInner: React.FC = () => {
-
-  // const location = useLocation();
-  // const isStageRelated = ['/stage-play', '/contents', '/terms', '/mypage'].some(p =>
-  //   location.pathname.startsWith(p)
-  // );
   useEffect(() => {
     AdMob.initialize();
   }, []);
   return (
     <IonApp>
-      {/* {isStageRelated && <div style={{
-        position: 'fixed',
-        top: 16,
-        right: 16,
-        zIndex: 9999,
-        pointerEvents: 'none' // ← これでUI邪魔しない
-      }}>
-        <CurrentMoneyDisplay />
-      </div>} ← ここがポイント */}
       <IonReactRouter>
         <IonRouterOutlet>
           <Route exact path="/home">
@@ -94,6 +81,9 @@ const AppInner: React.FC = () => {
           </Route>
           <Route exact path="/login-page">
             <LoginPage />
+          </Route>
+          <Route exact path="/result">
+            <Result />
           </Route>
         </IonRouterOutlet>
       </IonReactRouter>
