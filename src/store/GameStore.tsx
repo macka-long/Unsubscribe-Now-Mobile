@@ -1,9 +1,11 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 type GameState = {
   isPlaying: boolean;
   beforeStartMoney: number;
+  hasWatchedRewardAd: boolean;
   setBeforeStartMoney: (value: number) => void;
+  setHasWatchedRewardAd: (value: boolean) => void;
   startGame: () => void;
   endGame: () => void;
 };
@@ -11,7 +13,9 @@ type GameState = {
 export const useGameStore = create<GameState>((set) => ({
   isPlaying: false,
   beforeStartMoney: 0,
+  hasWatchedRewardAd: false,
   setBeforeStartMoney: (value) => set({ beforeStartMoney: value }),
-  startGame: () => set({ isPlaying: true }),
+  setHasWatchedRewardAd: (value) => set({ hasWatchedRewardAd: value }),
+  startGame: () => set({ isPlaying: true, hasWatchedRewardAd: false }),
   endGame: () => set({ isPlaying: false }),
 }));

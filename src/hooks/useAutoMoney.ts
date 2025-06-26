@@ -12,7 +12,7 @@ const useAutoMoney = () => {
       if (money < maxMoney) {
         addMoney(5000);
       }
-    }, 10000); // 10秒ごと
+    }, 60000); // 10秒ごと
 
     return () => clearInterval(interval); // クリーンアップ
   }, []); // 一度だけ実行（マウント時）
