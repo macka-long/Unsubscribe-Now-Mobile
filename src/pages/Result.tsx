@@ -18,8 +18,6 @@ const Result: React.FC = () => {
     const isSuccess = location.state?.isSuccess ?? false;
     const totalLoss = location.state?.totalLoss ?? 0;
 
-    console.log("b");
-
     return (
         <IonPage>
             <IonContent className="ion-padding" style={{ textAlign: 'center' }}>

@@ -21,6 +21,7 @@ const StageRunner: React.FC = () => {
   const startGame = useGameStore((s) => s.startGame);
   const endGame = useGameStore((s) => s.endGame);
   const beforeStartMoney = useGameStore((s) => s.beforeStartMoney);
+  console.log(beforeStartMoney);
 
   console.log("a");
 
