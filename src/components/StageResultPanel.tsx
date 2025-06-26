@@ -2,6 +2,7 @@ import { IonText } from "@ionic/react";
 import React, { useState } from "react";
 import AdReward from "./AdReward";
 import { useMoneyStore } from "../store/moneyStore";
+import { useGameStore } from "../store/GameStore";
 
 type StageResultProps = {
   isSuccess: boolean;
@@ -17,12 +18,13 @@ const StageResultPanel: React.FC<StageResultProps> = ({
   onBackToTop,
 }) => {
   const [showRewardAd, setShowRewardAd] = useState(false);
-  const [hasWatchedAd, setHasWatchedAd] = useState(false);
+  const { hasWatchedRewardAd, setHasWatchedRewardAd } = useGameStore();
 
   const addMoney = useMoneyStore((s) => s.addMoney);
   const handleReward = () => {
     addMoney(totalLoss);
-    setHasWatchedAd(true);
+    setHasWatchedRewardAd(true);
+    setShowRewardAd(false);
   };
 
   return (
@@ -79,20 +81,17 @@ const StageResultPanel: React.FC<StageResultProps> = ({
         <IonText
           color="primary"
           style={{
-            textDecoration:
-              !hasWatchedAd && !showRewardAd ? "underline" : "none",
-            cursor: !hasWatchedAd && !showRewardAd ? "pointer" : "default",
-            opacity: hasWatchedAd || showRewardAd ? 0.5 : 1,
+            textDecoration: !hasWatchedRewardAd ? "underline" : "none",
+            cursor: !hasWatchedRewardAd ? "pointer" : "default",
+            opacity: !hasWatchedRewardAd ? 1 : 0.5,
           }}
           onClick={
-            !hasWatchedAd && !showRewardAd
-              ? () => setShowRewardAd(true)
-              : undefined
+            !hasWatchedRewardAd ? () => setHasWatchedRewardAd(true) : undefined
           }
         >
           広告を見て、ステージ開始前の所持金までチャージする
         </IonText>
-        {showRewardAd && <AdReward rewardFunc={handleReward} />}
+        {hasWatchedRewardAd && <AdReward rewardFunc={handleReward} />}
       </div>
 
       <div>
