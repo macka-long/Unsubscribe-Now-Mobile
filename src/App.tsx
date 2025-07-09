@@ -1,3 +1,4 @@
+import "./App.css"
 import { Redirect, Route, useLocation } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';

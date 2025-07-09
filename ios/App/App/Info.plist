@@ -47,5 +47,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>玉ねぎ楷書激無料版v7改.ttf</string>
+	</array>
 </dict>
 </plist>
