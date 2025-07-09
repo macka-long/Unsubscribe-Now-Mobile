@@ -31,3 +31,4 @@ yarn-error.log*
 .eslintcache
 
 src/assets/fonts/
+/ios/App/App/玉ねぎ楷書激無料版v7.ttf
