@@ -28,38 +28,6 @@ const Top: React.FC<PageComponentProps> = ({ onNext }) => {
         onClickLogout={() => history.push("/login-page")}
       ></SiteMenu>
 
-      {/* <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "0.25rem",
-          marginBottom: "1rem",
-        }}
-      >
-        <button>サイトトップ</button>
-        <button>マイページ</button>
-        <button onClick={() => history.push("/contents", { siteName })}>
-          コンテンツ一覧
-        </button>
-        <button
-          onClick={() =>
-            history.push("/terms", {
-              ratePerSecond: stage?.ratePerSecond,
-              siteName: siteName,
-              isStarted: true,
-            })
-          }
-        >
-          利用規約
-        </button>
-        <button
-          style={{ gridColumn: "span 2" }}
-          onClick={() => history.push("/login-page")}
-        >
-          ログアウト
-        </button>
-      </div> */}
-
       <div
         style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}
       >

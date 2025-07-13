@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface MoneyState {
   money: number;
@@ -35,7 +35,7 @@ export const useMoneyStore = create<MoneyState>()(
         set({ lastUpdated: Date.now() });
       },
       addOfflineEarnings: () => {
-        const { lastUpdated, money, maxMoney, addMoney } = get();
+        const { lastUpdated, money, maxMoney } = get();
         if (!lastUpdated) return;
 
         const now = Date.now();
@@ -50,7 +50,7 @@ export const useMoneyStore = create<MoneyState>()(
       },
     }),
     {
-      name: 'money-storage', // localStorageに保存されるキー
+      name: "money-storage", // localStorageに保存されるキー
     }
   )
 );
