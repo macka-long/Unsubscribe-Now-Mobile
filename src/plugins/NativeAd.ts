@@ -1,4 +1,4 @@
-import { registerPlugin } from '@capacitor/core';
+import { registerPlugin } from "@capacitor/core";
 
 export interface NativeAdData {
   headline: string;
@@ -8,12 +8,13 @@ export interface NativeAdData {
 }
 
 export interface NativeAdPluginType {
-  loadNativeAd(): Promise<void>;
+  loadNativeAd(options: { adUnitId: string }): Promise<void>;
   addListener(
     eventName: 'nativeAdLoaded',
-    listenerFunc: (data: { ad: NativeAdData }) => void
+    listenerFunc: (data: NativeAdData) => void
   ): Promise<any>;
 }
+
 
 const NativeAdPlugin = registerPlugin<NativeAdPluginType>('NativeAdPlugin');
 

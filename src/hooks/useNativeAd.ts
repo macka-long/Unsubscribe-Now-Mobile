@@ -6,14 +6,17 @@ export const useNativeAd = () => {
 
   useEffect(() => {
     const load = async () => {
-      await NativeAdPlugin.loadNativeAd();
-    };
+    await NativeAdPlugin.loadNativeAd({
+      adUnitId: 'ca-app-pub-3940256099942544/3986624511', // ← テスト用IDなど
+    });
+};
 
-    const listen = NativeAdPlugin.addListener('nativeAdLoaded', (data) => {
-      setAd(data.ad);
+    const listen = NativeAdPlugin.addListener('nativeAdLoaded', (ad) => {
+      setAd(ad); // ad.headline などがそのまま使える
     });
 
-    load();
+    const result = load();
+    console.log(result);
 
     return () => {
       listen.then((remove) => remove.remove());
