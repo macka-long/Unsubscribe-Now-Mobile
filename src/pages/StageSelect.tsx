@@ -7,7 +7,7 @@ import {
   IonText,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Stage } from "../types/stage";
 import stagesJson from "../data/stages.json";
 import { useStageStore } from "../store/stageStore";
@@ -15,6 +15,7 @@ import { useUserStore } from "../store/userStore";
 
 const StageSelect: React.FC = () => {
   const history = useHistory();
+
   const [stages, setStages] = useState<Stage[]>(stagesJson);
   const loadStage = useStageStore((s) => s.loadStage);
   const resetCredentials = useUserStore((s) => s.resetCredentials);

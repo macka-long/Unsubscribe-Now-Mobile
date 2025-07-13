@@ -21,6 +21,7 @@ const StageResultPanel: React.FC<StageResultProps> = ({
   const { hasWatchedRewardAd, setHasWatchedRewardAd } = useGameStore();
 
   const addMoney = useMoneyStore((s) => s.addMoney);
+  const money = useMoneyStore((s) => s.money);
   const handleReward = () => {
     addMoney(totalLoss);
     setHasWatchedRewardAd(true);
@@ -97,8 +98,12 @@ const StageResultPanel: React.FC<StageResultProps> = ({
       <div>
         <IonText
           color="primary"
-          style={{ textDecoration: "underline", cursor: "pointer" }}
-          onClick={onBackToStage}
+          style={{
+            cursor: money > 0 ? "pointer" : "default",
+            textDecoration: money > 0 ? "underline" : "none",
+            opacity: money > 0 ? 1 : 0.5,
+          }}
+          onClick={money > 0 ? () => onBackToStage() : undefined}
         >
           ステージ選択に戻る
         </IonText>
