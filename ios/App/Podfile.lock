@@ -19,6 +19,7 @@ PODS:
   - GoogleUserMessagingPlatform (2.7.0)
   - NativeAdPlugin (0.0.1):
     - Capacitor
+    - Google-Mobile-Ads-SDK
 
 DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
@@ -63,8 +64,8 @@ SPEC CHECKSUMS:
   CapacitorStatusBar: 275cbf2f4dfc00388f519ef80c7ec22edda342c9
   Google-Mobile-Ads-SDK: 301a16c461c331ba34ff4dab40a22ab7c147af61
   GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
-  NativeAdPlugin: f7e37eac777b38053d1f2cdb79599e376d4c400d
+  NativeAdPlugin: 54979ea0152374be536288e19941bb4feae35af8
 
-PODFILE CHECKSUM: 542589bb46e3ba489162c83ffb3fc455dce55621
+PODFILE CHECKSUM: 4ff5da8acd01ebe9cff8d792f0b97bb7ef3cd181
 
 COCOAPODS: 1.16.2
