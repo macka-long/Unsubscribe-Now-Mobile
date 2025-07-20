@@ -4,5 +4,4 @@ export interface Stage {
   genre: string;
   theme: string;
   ratePerSecond: number;
-  stepSequence: string[];
 }

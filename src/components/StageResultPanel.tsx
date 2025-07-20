@@ -2,7 +2,7 @@ import { IonText } from "@ionic/react";
 import React, { useState } from "react";
 import AdReward from "./AdReward";
 import { useMoneyStore } from "../store/moneyStore";
-import { useGameStore } from "../store/GameStore";
+import { useGameStore } from "../store/gameStore";
 
 type StageResultProps = {
   isSuccess: boolean;
