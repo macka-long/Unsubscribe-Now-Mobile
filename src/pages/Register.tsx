@@ -5,13 +5,10 @@ import {
   IonButton,
   IonText,
 } from "@ionic/react";
-import { useHistory, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { Stage } from "../types/stage";
+import { useHistory } from "react-router-dom";
 import { useUserStore } from "../store/userStore";
 import { validateLoginId, validatePassword } from "../utils/validation";
-import { useStageStore } from "../store/stageStore";
-import { useGameStore } from "../store/GameStore";
+import { useGameStore } from "../store/gameStore";
 import { useMoneyStore } from "../store/moneyStore";
 
 const RegisterPage: React.FC = () => {
@@ -19,13 +16,10 @@ const RegisterPage: React.FC = () => {
 
   const { loginId, password, setLoginId, setPassword } = useUserStore();
 
-  //   const [loginId, setLoginId] = useState("");
-  //   const [password, setPassword] = useState("");
-
-  const currentStage = useStageStore((s) => s.currentStage);
-  const resetCurrentIndex = useStageStore((s) => s.resetCurrentINdex);
+  const currentStage = useGameStore((s) => s.selectedStage);
   const setBeforeStartMoney = useGameStore((s) => s.setBeforeStartMoney);
   const currentMoney = useMoneyStore((s) => s.money);
+  const startGame = useGameStore((s) => s.startGame);
 
   const handleRegister = () => {
     if (!validateLoginId(loginId)) {
@@ -38,12 +32,12 @@ const RegisterPage: React.FC = () => {
       return;
     }
     if (loginId && password) {
-      //   setCredentials(loginId, password);
-
+      startGame();
       setBeforeStartMoney(currentMoney);
-      resetCurrentIndex();
+      const stageId = currentStage?.id;
 
-      history.push("/stage-play");
+      history.push(`/stages/${stageId}`);
+      console.log("navigated to", history.location.pathname);
     }
   };
 

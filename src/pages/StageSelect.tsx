@@ -10,18 +10,18 @@ import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import { Stage } from "../types/stage";
 import stagesJson from "../data/stages.json";
-import { useStageStore } from "../store/stageStore";
 import { useUserStore } from "../store/userStore";
+import { useGameStore } from "../store/gameStore";
 
 const StageSelect: React.FC = () => {
   const history = useHistory();
 
   const [stages, setStages] = useState<Stage[]>(stagesJson);
-  const loadStage = useStageStore((s) => s.loadStage);
+  const setSelectedStage = useGameStore((s) => s.setSelectedStage);
   const resetCredentials = useUserStore((s) => s.resetCredentials);
 
   const handleSelect = (stage: Stage) => {
-    loadStage(stage);
+    setSelectedStage(stage);
     resetCredentials();
     history.push("/register"); // RegisterPage へステージ情報を渡す
   };

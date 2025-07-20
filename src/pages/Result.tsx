@@ -2,7 +2,7 @@ import React from "react";
 import { IonPage, IonContent } from "@ionic/react";
 import StageResultPanel from "../components/StageResultPanel";
 import { useHistory, useLocation } from "react-router";
-import { useStageStore } from "../store/stageStore";
+import { useGameStore } from "../store/gameStore";
 
 interface ResultLocationState {
   isSuccess: boolean;
@@ -17,7 +17,7 @@ const Result: React.FC = () => {
   const isSuccess = location.state?.isSuccess ?? false;
   const totalLoss = location.state?.totalLoss ?? 0;
 
-  const currentStage = useStageStore((s) => s.currentStage);
+  const currentStage = useGameStore((s) => s.selectedStage);
   const siteName = currentStage?.title;
 
   return (

@@ -35,20 +35,27 @@ import "@ionic/react/css/palettes/dark.system.css";
 import "./theme/variables.css";
 import GameDescription from "./pages/GameDescription";
 import StageSelect from "./pages/StageSelect";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { AdMob } from "@capacitor-community/admob";
 import RegisterPage from "./pages/Register";
 import TermsPage from "./pages/Terms";
-import StageRunner from "./pages/StageRunner";
-import Contents from "./pages/stagePages/Contents";
-import LoginPage from "./pages/stagePages/LoginPage";
+
 import Result from "./pages/Result";
+import { stageRoutes } from "./routes/stageRoutes";
+import LoginPage from "./components/stageComponents/LoginPage";
 
 setupIonicReact();
 
 const AppInner: React.FC = () => {
   useEffect(() => {
     AdMob.initialize();
+  }, []);
+
+  useEffect(() => {
+    const routes = Object.entries(stageRoutes).flatMap(([id, paths]) =>
+      paths.map(({ path }) => `/stages/${id}${path ? `/${path}` : ""}`)
+    );
+    console.log("Registered Routes:", routes);
   }, []);
   return (
     <IonApp>
@@ -66,19 +73,30 @@ const AppInner: React.FC = () => {
           <Route exact path="/stages">
             <StageSelect />
           </Route>
+
+          {Object.entries(stageRoutes).flatMap(([stageId, routes]) =>
+            routes.map(({ path, component: Component }, i) => (
+              <Route
+                key={`stage-${stageId}-${i}`}
+                exact
+                path={`/stages/${stageId}${path ? `/${path}` : ""}`}
+                render={() => (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Component />
+                  </Suspense>
+                )}
+              />
+            ))
+          )}
+
           <Route exact path="/register">
             <RegisterPage />
           </Route>
           <Route exact path="/terms">
             <TermsPage />
           </Route>
-          <Route exact path="/stage-play">
-            <StageRunner />
-          </Route>
-          <Route exact path="/contents">
-            <Contents />
-          </Route>
-          <Route exact path="/login-page">
+
+          <Route exact path="/login">
             <LoginPage />
           </Route>
           <Route exact path="/result">
