@@ -2,6 +2,7 @@
 import { Redirect, Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+
 import GameTopScreen from "./pages/GameTopScreen";
 
 /* Core CSS required for Ionic components to work properly */
@@ -44,8 +45,10 @@ import Result from "./pages/Result";
 import { stageRoutes } from "./routes/stageRoutes";
 import LoginPage from "./components/stageComponents/LoginPage";
 
-setupIonicReact();
-
+setupIonicReact({
+  hardwareBackButton: false,
+  swipeBackEnabled: false,
+});
 const AppInner: React.FC = () => {
   useEffect(() => {
     AdMob.initialize();
