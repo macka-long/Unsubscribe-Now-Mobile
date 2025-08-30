@@ -21,6 +21,8 @@ export const useGameStore = create<GameState>((set) => ({
   setSelectedStage: (value) => set({ selectedStage: value }),
   setBeforeStartMoney: (value) => set({ beforeStartMoney: value }),
   setHasWatchedRewardAd: (value) => set({ hasWatchedRewardAd: value }),
-  startGame: () => set({ isPlaying: true, hasWatchedRewardAd: false }),
+  startGame: () => {
+    set({ isPlaying: true, hasWatchedRewardAd: false });
+  },
   endGame: () => set({ isPlaying: false }),
 }));

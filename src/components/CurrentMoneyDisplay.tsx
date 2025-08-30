@@ -8,16 +8,13 @@ const CurrentMoneyDisplay: React.FC = () => {
   const money = useMoneyStore((state) => state.money);
   const [isActive, setIsActive] = useState(false);
   const isPlaying = useGameStore((s) => s.isPlaying);
-  console.log(isPlaying);
 
   return (
     <div
       onMouseEnter={() => {
-        console.log("onMouseEnter");
         setIsActive(true);
       }}
       onMouseLeave={() => {
-        console.log("onMouseLeave");
         setIsActive(false);
       }}
       style={{

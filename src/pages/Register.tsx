@@ -37,7 +37,6 @@ const RegisterPage: React.FC = () => {
       const stageId = currentStage?.id;
 
       history.push(`/stages/${stageId}`);
-      console.log("navigated to", history.location.pathname);
     }
   };
 

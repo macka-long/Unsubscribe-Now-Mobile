@@ -23,7 +23,6 @@ const Top: React.FC = () => {
     const unsubscribe = useMoneyStore.subscribe((s) => {
       if (s.money <= 0) {
         endGame();
-        console.log("おわり");
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const totalLoss = useTotalLoss(beforeStartMoney);
         history.replace("/result", {

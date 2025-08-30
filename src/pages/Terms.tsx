@@ -8,6 +8,11 @@ import {
 import { useHistory, useLocation } from "react-router-dom";
 import CurrentMoneyDisplay from "../components/CurrentMoneyDisplay";
 import CustomBackButton from "../components/CustomBackButton";
+import { useGameStore } from "../store/gameStore";
+import {
+  loadInterstitial,
+  showInterstitial,
+} from "../components/AdInterstitial";
 
 interface LocationState {
   ratePerSecond: number;
@@ -19,16 +24,19 @@ const TermsPage: React.FC = () => {
   const location = useLocation<LocationState>();
   const rate = location.state?.ratePerSecond ?? 0;
   const siteName = location.state?.siteName ?? "サイト名";
-  const isStarted = location.state?.isStarted ?? false;
+  const isPlaying = useGameStore((s) => s.isPlaying);
   const history = useHistory();
 
   const handleBack = () => {
+    loadInterstitial();
+    showInterstitial();
+
     history.goBack();
   };
 
   return (
     <IonPage>
-      {isStarted && (
+      {isPlaying && (
         <div
           style={{
             position: "fixed",

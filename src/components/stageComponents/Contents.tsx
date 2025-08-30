@@ -10,13 +10,20 @@ import CurrentMoneyDisplay from "../../components/CurrentMoneyDisplay";
 import CustomBackButton from "../../components/CustomBackButton";
 import AdNativeWrapper from "../../components/AdNativeWrapper";
 import { useGameStore } from "../../store/gameStore";
+import { loadInterstitial, showInterstitial } from "../AdInterstitial";
+import { useEffect } from "react";
 
 const Contents: React.FC = () => {
   const history = useHistory();
   const currentStage = useGameStore((s) => s.selectedStage);
   const siteName = currentStage?.title;
 
-  const handleBack = () => {
+  useEffect(() => {
+    console.log("contents描画");
+    loadInterstitial();
+  }, []);
+  const handleBack = async () => {
+    showInterstitial();
     history.goBack();
   };
 
