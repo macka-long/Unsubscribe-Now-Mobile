@@ -9,6 +9,10 @@ const CurrentMoneyDisplay: React.FC = () => {
   const [isActive, setIsActive] = useState(false);
   const isPlaying = useGameStore((s) => s.isPlaying);
 
+  const onClickPose = () => {
+    alert("ゲームを再開するときはOKを押してください");
+  };
+
   return (
     <div
       onMouseEnter={() => {
@@ -59,7 +63,7 @@ const CurrentMoneyDisplay: React.FC = () => {
             <IonButton
               size="small"
               onClick={() => {
-                alert();
+                onClickPose();
               }}
               style={{
                 marginRight: "1rem",
