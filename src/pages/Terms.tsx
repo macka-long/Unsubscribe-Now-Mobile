@@ -43,7 +43,6 @@ const TermsPage: React.FC = () => {
             top: 16,
             right: 16,
             zIndex: 9999,
-            pointerEvents: "none", // ← これでUI邪魔しない
           }}
         >
           <CurrentMoneyDisplay />
