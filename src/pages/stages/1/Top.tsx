@@ -21,14 +21,17 @@ const Top: React.FC = () => {
 
   useEffect(() => {
     const unsubscribe = useMoneyStore.subscribe((s) => {
-      if (s.money <= 0) {
-        endGame();
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const totalLoss = useTotalLoss(beforeStartMoney);
-        history.replace("/result", {
-          isSuccess: false,
-          totalLoss: totalLoss,
-        });
+      const isPlaying = useGameStore.getState().isPlaying;
+      if (isPlaying) {
+        if (s.money <= 0) {
+          endGame();
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          const totalLoss = useTotalLoss(beforeStartMoney);
+          history.replace("/result", {
+            isSuccess: false,
+            totalLoss: totalLoss,
+          });
+        }
       }
     });
     return () => unsubscribe();
