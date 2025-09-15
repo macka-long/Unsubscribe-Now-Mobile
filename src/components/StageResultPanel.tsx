@@ -22,6 +22,12 @@ const StageResultPanel: React.FC<StageResultProps> = ({
 
   const addMoney = useMoneyStore((s) => s.addMoney);
   const money = useMoneyStore((s) => s.money);
+  const onClickReward = () => {
+    if (!hasWatchedRewardAd) {
+      setHasWatchedRewardAd(true);
+      setShowRewardAd(true);
+    }
+  };
   const handleReward = () => {
     addMoney(totalLoss);
     setHasWatchedRewardAd(true);
@@ -86,13 +92,11 @@ const StageResultPanel: React.FC<StageResultProps> = ({
             cursor: !hasWatchedRewardAd ? "pointer" : "default",
             opacity: !hasWatchedRewardAd ? 1 : 0.5,
           }}
-          onClick={
-            !hasWatchedRewardAd ? () => setHasWatchedRewardAd(true) : undefined
-          }
+          onClick={onClickReward}
         >
           広告を見て、ステージ開始前の所持金までチャージする
         </IonText>
-        {hasWatchedRewardAd && <AdReward rewardFunc={handleReward} />}
+        {showRewardAd && <AdReward rewardFunc={handleReward} />}
       </div>
 
       <div>

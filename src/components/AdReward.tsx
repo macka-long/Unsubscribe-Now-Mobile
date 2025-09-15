@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   AdMob,
   AdOptions,
@@ -12,6 +12,7 @@ type RewardAdProps = {
   rewardFunc: () => void;
 };
 const AdReward: React.FC<RewardAdProps> = ({ rewardFunc }) => {
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     let rewardListener: PluginListenerHandle;
 
@@ -29,6 +30,7 @@ const AdReward: React.FC<RewardAdProps> = ({ rewardFunc }) => {
         isTesting: true,
       });
 
+      setLoading(false); // ローディング終了
       await AdMob.showRewardVideoAd();
     };
 
@@ -38,6 +40,10 @@ const AdReward: React.FC<RewardAdProps> = ({ rewardFunc }) => {
       rewardListener?.remove();
     };
   }, []);
+
+  if (loading) {
+    return <div>読み込み中...</div>; // ← ローディングUI
+  }
 
   return null; // 表示UIはネイティブなので不要
 };
