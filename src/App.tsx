@@ -2,6 +2,7 @@
 import { Redirect, Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+import { App as CapacitorApp } from "@capacitor/app";
 
 import GameTopScreen from "./pages/GameTopScreen";
 
@@ -44,6 +45,8 @@ import TermsPage from "./pages/Terms";
 import Result from "./pages/Result";
 import { stageRoutes } from "./routes/stageRoutes";
 import LoginPage from "./components/stageComponents/LoginPage";
+import { useGameStore } from "./store/gameStore";
+import { PluginListenerHandle } from "@capacitor/core";
 
 setupIonicReact({
   hardwareBackButton: false,
@@ -52,6 +55,29 @@ setupIonicReact({
 const AppInner: React.FC = () => {
   useEffect(() => {
     AdMob.initialize();
+  }, []);
+
+  useEffect(() => {
+    let listener: PluginListenerHandle;
+
+    (async () => {
+      listener = await CapacitorApp.addListener(
+        "appStateChange",
+        ({ isActive }) => {
+          const isPlaying = useGameStore.getState().isPlaying;
+          if (!isActive && isPlaying) {
+            console.log(isPlaying);
+            alert("ゲームを再開するときはOKを押してください");
+          }
+        }
+      );
+    })();
+
+    return () => {
+      if (listener) {
+        listener.remove();
+      }
+    };
   }, []);
 
   useEffect(() => {
