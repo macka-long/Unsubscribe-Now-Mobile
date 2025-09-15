@@ -28,8 +28,10 @@ const TermsPage: React.FC = () => {
   const history = useHistory();
 
   const handleBack = () => {
-    loadInterstitial();
-    showInterstitial();
+    if (isPlaying) {
+      loadInterstitial();
+      showInterstitial();
+    }
 
     history.goBack();
   };
