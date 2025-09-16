@@ -5,6 +5,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import { App as CapacitorApp } from "@capacitor/app";
 
 import GameTopScreen from "./pages/GameTopScreen";
+import { useMoneyStore } from "./store/moneyStore";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -52,10 +53,26 @@ setupIonicReact({
   hardwareBackButton: false,
   swipeBackEnabled: false,
 });
+
+const formatDate = (timestamp: number) => {
+  const date = new Date(timestamp);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // 0始まりなので+1
+  const day = String(date.getDate()).padStart(2, "0");
+
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  return `${year}/${month}/${day} ${hours}:${minutes}`;
+};
+
 const AppInner: React.FC = () => {
   useEffect(() => {
     AdMob.initialize();
   }, []);
+
+  const addOfflineEarnings = useMoneyStore((s) => s.addOfflineEarnings);
 
   useEffect(() => {
     let listener: PluginListenerHandle;
@@ -65,6 +82,24 @@ const AppInner: React.FC = () => {
         "appStateChange",
         ({ isActive }) => {
           const isPlaying = useGameStore.getState().isPlaying;
+          if (isActive && !isPlaying) {
+            const now = Date.now();
+            console.log("現在 : ", now);
+            const lastUpdated = useMoneyStore.getState().lastUpdated;
+            console.log("最終更新 : ", lastUpdated);
+            const elapsed = Math.floor((now - lastUpdated) / 1000); // 秒
+            const elapsedMinutes = Math.floor(elapsed / 60);
+            console.log("経過分", elapsedMinutes);
+            const message =
+              "最終更新日時 : " +
+              formatDate(lastUpdated) +
+              "\n" +
+              "経過分 : " +
+              elapsedMinutes;
+            // alert(message);
+            addOfflineEarnings(); // 差分加算
+          }
+
           if (!isActive && isPlaying) {
             console.log(isPlaying);
             alert("ゲームを再開するときはOKを押してください");
