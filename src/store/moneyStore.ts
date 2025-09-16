@@ -36,16 +36,28 @@ export const useMoneyStore = create<MoneyState>()(
       },
       addOfflineEarnings: () => {
         const { lastUpdated, money, maxMoney } = get();
+        // console.log(
+        //   "localStorage:",
+        //   JSON.parse(localStorage.getItem("money-storage") || "{}")
+        // );
+        // console.log("初期所持金 : ", money);
         if (!lastUpdated) return;
 
         const now = Date.now();
+        // console.log("現在 : ", now);
+        // console.log("最終更新 : ", lastUpdated);
         const elapsed = Math.floor((now - lastUpdated) / 1000); // 秒
+        const elapsedMinutes = Math.floor(elapsed / 60);
+        // console.log("経過分", elapsedMinutes);
 
-        const earned = Math.floor(elapsed / 10) * 5000;
+        const earned = Math.floor(elapsedMinutes / 5) * 5000;
+        // console.log("経過分の稼ぎ : ", earned);
 
         if (earned > 0) {
           const newMoney = Math.min(money + earned, maxMoney);
+          // console.log(newMoney);
           set({ money: newMoney });
+          set({ lastUpdated: Date.now() });
         }
       },
     }),

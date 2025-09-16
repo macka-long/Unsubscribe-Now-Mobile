@@ -18,10 +18,15 @@ const GameTopScreen: React.FC = () => {
   useAutoMoney();
 
   const addOfflineEarnings = useMoneyStore((s) => s.addOfflineEarnings);
-  const updateTimestamp = useMoneyStore((s) => s.updateTimestamp);
   useEffect(() => {
+    // const now = Date.now();
+    // console.log("現在 : ", now);
+    // const lastUpdated = useMoneyStore.getState().lastUpdated;
+    // console.log("最終更新 : ", lastUpdated);
+    // const elapsed = Math.floor((now - lastUpdated) / 1000); // 秒
+    // const elapsedMinutes = Math.floor(elapsed / 60);
+    // console.log("経過分", elapsedMinutes);
     addOfflineEarnings(); // 差分加算
-    updateTimestamp(); // タイムスタンプ更新
   }, []);
 
   const money = useMoneyStore((state) => state.money);
@@ -73,6 +78,10 @@ const GameTopScreen: React.FC = () => {
                 color="primary"
                 onClick={() => {
                   addMoney(3000);
+                  console.log(
+                    "localStorage:",
+                    JSON.parse(localStorage.getItem("money-storage") || "{}")
+                  );
                 }}
                 style={{ cursor: "pointer", textDecoration: "underline" }}
               >
