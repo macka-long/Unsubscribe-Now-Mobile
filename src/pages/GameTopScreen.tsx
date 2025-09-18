@@ -8,10 +8,24 @@ import {
   IonText,
 } from "@ionic/react";
 import { useHistory } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMoneyStore } from "../store/moneyStore";
 import useAutoMoney from "../hooks/useAutoMoney";
 import AdBanner from "../components/AdBanner";
+import AdReward from "../components/AdReward";
+import { useRewardStore } from "../store/rewardStore";
+
+const formatDate = (timestamp: number | null) => {
+  if (timestamp == null) return "";
+  const totalSeconds = Math.floor(timestamp / 1000);
+  const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+  const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(
+    2,
+    "0"
+  );
+  const seconds = String(totalSeconds % 60).padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
+};
 
 const GameTopScreen: React.FC = () => {
   const history = useHistory();
@@ -29,9 +43,57 @@ const GameTopScreen: React.FC = () => {
     addOfflineEarnings(); // 差分加算
   }, []);
 
+  const [showRewardAd, setShowRewardAd] = useState(false);
+  // const isElapsed = () => {
+  //   const lastRewarded = useRewardStore.getState().lastRewarded;
+  //   if (!lastRewarded) return true; // 初回ならOKにする
+
+  //   const now = Date.now();
+  //   const elapsedMs = now - lastRewarded; // ミリ秒差分
+
+  //   const threeHoursMs = 3 * 60 * 60 * 1000; // 3時間 = 10800000 ms
+
+  //   return elapsedMs >= threeHoursMs;
+  // };
+  const isElapsedRewardInterval = useRewardStore(
+    (s) => s.isElapsedRewardInterval
+  );
+
+  const remainTime = useRewardStore((s) => s.remainTime);
+
+  const [isEnableRewardAnchor, setIsEnableRewardAnchor] = useState(true);
+
+  useEffect(() => {
+    // 初期評価
+    setIsEnableRewardAnchor(isElapsedRewardInterval());
+    console.log("useEffect");
+    // 1秒ごとに再評価
+    const interval = setInterval(() => {
+      setIsEnableRewardAnchor(isElapsedRewardInterval());
+      console.log("再評価");
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isElapsedRewardInterval]);
+
+  const onClickReward = () => {
+    if (isEnableRewardAnchor) {
+      console.log("ストアリワード押下");
+      setShowRewardAd(true);
+    }
+  };
+  const addMoney = useMoneyStore((state) => state.addMoney);
+  const updateTimestampRewarded = useRewardStore(
+    (s) => s.updateTimestampRewarded
+  );
+  const handleReward = () => {
+    addMoney(50000);
+    setShowRewardAd(false);
+    updateTimestampRewarded();
+  };
+
   const money = useMoneyStore((state) => state.money);
   const resetMoney = useMoneyStore((state) => state.resetMoney);
-  const addMoney = useMoneyStore((state) => state.addMoney);
   return (
     <IonPage>
       <IonContent className="ion-padding" fullscreen>
@@ -120,11 +182,18 @@ const GameTopScreen: React.FC = () => {
           <h2 style={{ fontWeight: "bold", fontFamily: "MyFont" }}>ストア</h2>
           <IonText
             color="primary"
-            onClick={() => history.push("/store")}
-            style={{ cursor: "pointer", textDecoration: "underline" }}
+            onClick={onClickReward}
+            style={{
+              textDecoration: isEnableRewardAnchor ? "underline" : "none",
+              cursor: isEnableRewardAnchor ? "pointer" : "default",
+              opacity: isEnableRewardAnchor ? 1 : 0.5,
+            }}
           >
-            所持金を追加する
+            広告を見て、所持金フルチャージ(3時間に1回)
           </IonText>
+          {showRewardAd && <AdReward rewardFunc={handleReward} />}
+          <br></br>
+          <IonText>回復まで{formatDate(remainTime)}</IonText>
         </div>
         <AdBanner /> {/* バナー表示 */}
       </IonContent>
