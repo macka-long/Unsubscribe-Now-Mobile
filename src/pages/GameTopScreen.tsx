@@ -33,28 +33,10 @@ const GameTopScreen: React.FC = () => {
 
   const addOfflineEarnings = useMoneyStore((s) => s.addOfflineEarnings);
   useEffect(() => {
-    // const now = Date.now();
-    // console.log("現在 : ", now);
-    // const lastUpdated = useMoneyStore.getState().lastUpdated;
-    // console.log("最終更新 : ", lastUpdated);
-    // const elapsed = Math.floor((now - lastUpdated) / 1000); // 秒
-    // const elapsedMinutes = Math.floor(elapsed / 60);
-    // console.log("経過分", elapsedMinutes);
     addOfflineEarnings(); // 差分加算
   }, []);
 
   const [showRewardAd, setShowRewardAd] = useState(false);
-  // const isElapsed = () => {
-  //   const lastRewarded = useRewardStore.getState().lastRewarded;
-  //   if (!lastRewarded) return true; // 初回ならOKにする
-
-  //   const now = Date.now();
-  //   const elapsedMs = now - lastRewarded; // ミリ秒差分
-
-  //   const threeHoursMs = 3 * 60 * 60 * 1000; // 3時間 = 10800000 ms
-
-  //   return elapsedMs >= threeHoursMs;
-  // };
   const isElapsedRewardInterval = useRewardStore(
     (s) => s.isElapsedRewardInterval
   );
@@ -66,11 +48,9 @@ const GameTopScreen: React.FC = () => {
   useEffect(() => {
     // 初期評価
     setIsEnableRewardAnchor(isElapsedRewardInterval());
-    console.log("useEffect");
     // 1秒ごとに再評価
     const interval = setInterval(() => {
       setIsEnableRewardAnchor(isElapsedRewardInterval());
-      console.log("再評価");
     }, 1000);
 
     return () => clearInterval(interval);
@@ -78,10 +58,10 @@ const GameTopScreen: React.FC = () => {
 
   const onClickReward = () => {
     if (isEnableRewardAnchor) {
-      console.log("ストアリワード押下");
       setShowRewardAd(true);
     }
   };
+
   const addMoney = useMoneyStore((state) => state.addMoney);
   const updateTimestampRewarded = useRewardStore(
     (s) => s.updateTimestampRewarded
@@ -193,7 +173,9 @@ const GameTopScreen: React.FC = () => {
           </IonText>
           {showRewardAd && <AdReward rewardFunc={handleReward} />}
           <br></br>
-          <IonText>回復まで{formatDate(remainTime)}</IonText>
+          {remainTime !== 0 && (
+            <IonText>回復まで{formatDate(remainTime)}</IonText>
+          )}
         </div>
         <AdBanner /> {/* バナー表示 */}
       </IonContent>
