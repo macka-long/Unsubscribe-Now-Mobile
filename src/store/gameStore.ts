@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Stage } from "../types/stage";
+import { loadInterstitial } from "../components/AdInterstitial";
 
 type GameState = {
   selectedStage: Stage | null;
@@ -22,6 +23,7 @@ export const useGameStore = create<GameState>((set) => ({
   setBeforeStartMoney: (value) => set({ beforeStartMoney: value }),
   setHasWatchedRewardAd: (value) => set({ hasWatchedRewardAd: value }),
   startGame: () => {
+    loadInterstitial();
     set({ isPlaying: true, hasWatchedRewardAd: false });
   },
   endGame: () => set({ isPlaying: false }),

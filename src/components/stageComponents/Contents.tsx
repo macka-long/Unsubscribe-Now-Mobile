@@ -19,10 +19,11 @@ const Contents: React.FC = () => {
   const siteName = currentStage?.title;
 
   useEffect(() => {
-    console.log("contents描画");
+    console.log("インタースティシャル広告ロード from コンテンツ");
     loadInterstitial();
   }, []);
   const handleBack = async () => {
+    // loadInterstitial();
     showInterstitial();
     history.goBack();
   };
