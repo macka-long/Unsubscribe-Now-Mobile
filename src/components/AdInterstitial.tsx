@@ -10,16 +10,19 @@ function loadInterstitial() {
       console.log(value); // true
     },
     (error: any) => {
+      console.error("インタースティシャル広告準備エラー");
       console.error(error); // show error
     }
   );
 }
+
 function showInterstitial() {
   AdMob.showInterstitial().then(
     (value: any) => {
       console.log(value); // true
     },
     (error: any) => {
+      console.error("インタースティシャル広告表示エラー");
       console.error(error); // show error
     }
   );

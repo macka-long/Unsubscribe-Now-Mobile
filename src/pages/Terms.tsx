@@ -13,6 +13,7 @@ import {
   loadInterstitial,
   showInterstitial,
 } from "../components/AdInterstitial";
+import { useEffect } from "react";
 
 interface LocationState {
   ratePerSecond: number;
@@ -27,9 +28,15 @@ const TermsPage: React.FC = () => {
   const isPlaying = useGameStore((s) => s.isPlaying);
   const history = useHistory();
 
+  useEffect(() => {
+    if (isPlaying) {
+      console.log("インタースティシャル広告ロード from 利用規約");
+      loadInterstitial();
+    }
+  }, []);
+
   const handleBack = () => {
     if (isPlaying) {
-      loadInterstitial();
       showInterstitial();
     }
 
