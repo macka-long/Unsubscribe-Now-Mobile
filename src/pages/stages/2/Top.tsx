@@ -17,9 +17,9 @@ const Top: React.FC = () => {
   // const endGame = useGameStore((s) => s.endGame);
   const beforeStartMoney = useGameStore((s) => s.beforeStartMoney);
   // const ratePerSecond = stage ? stage.ratePerSecond : 0;
+  //useAutoDecreaseMoney(ratePerSecond);
   const isClear = useGameStore((s) => s.isClear);
   const setIsClear = useGameStore((s) => s.setIsClear);
-  // useAutoDecreaseMoney(ratePerSecond);
 
   useEffect(() => {
     console.log("isClearの変化 : " + isClear);
@@ -135,7 +135,7 @@ const Top: React.FC = () => {
               paddingBottom: "60px",
             }}
             onClick={() => {
-              history.push("/stages/1/confirm");
+              history.push("/stages/2/confirm");
             }}
           >
             退会する
