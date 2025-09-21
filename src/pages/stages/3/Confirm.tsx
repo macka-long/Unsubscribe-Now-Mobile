@@ -67,24 +67,23 @@ const Confirm: React.FC = () => {
         >
           退会すると、本サイトのコンテンツにはアクセスできなくなります。
           <br />
-          本当に退会しますか？
+          本当に
+          <IonText
+            color="primary"
+            style={{
+              fontSize: "1.1rem",
+              textDecoration: "none",
+              cursor: "pointer",
+              color: "black",
+            }}
+            onClick={onUnsubscribe}
+          >
+            退会します
+          </IonText>
+          か？
         </p>
         <AdNativeWrapper />
-        <br />
-        <br />
-        <br />
-        <br />
-
-        <p
-          style={{
-            fontSize: "1.1rem",
-            lineHeight: "1.8",
-            marginBottom: "2rem",
-          }}
-        >
-          本当に退会しますか？
-        </p>
-        <IonText
+        {/* <IonText
           color="primary"
           style={{
             textDecoration: "underline",
@@ -94,7 +93,7 @@ const Confirm: React.FC = () => {
           onClick={onUnsubscribe}
         >
           退会する
-        </IonText>
+        </IonText> */}
       </IonContent>
     </IonPage>
   );

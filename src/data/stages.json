@@ -9,8 +9,15 @@
   {
     "id": 2,
     "title": "なんかのサイトVer2",
-    "genre": "動画",
-    "theme": "dark",
+    "genre": "漫画",
+    "theme": "pop",
     "ratePerSecond": 600
+  },
+  {
+    "id": 3,
+    "title": "なんかのサイトVer1.5",
+    "genre": "漫画",
+    "theme": "pop",
+    "ratePerSecond": 550
   }
 ]
