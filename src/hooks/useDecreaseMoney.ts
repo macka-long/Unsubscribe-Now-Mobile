@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useMoneyStore } from "../store/moneyStore";
 import { useGameStore } from "../store/gameStore";
 
@@ -7,18 +7,35 @@ import { useGameStore } from "../store/gameStore";
  */
 const useAutoDecreaseMoney = (ratePerSecond: number) => {
   const isPlaying = useGameStore((s) => s.isPlaying);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   useEffect(() => {
-    if (!isPlaying) return;
-
-    const interval = setInterval(() => {
-      const { money, minMoney, decreaseMoney } = useMoneyStore.getState();
-      if (money > minMoney) {
-        decreaseMoney(ratePerSecond);
+    console.log("自動減算発火");
+    if (isPlaying) {
+      // すでに interval がある場合は作らない
+      if (!intervalRef.current) {
+        intervalRef.current = setInterval(() => {
+          const { money, minMoney, decreaseMoney } = useMoneyStore.getState();
+          if (money > minMoney) {
+            decreaseMoney(ratePerSecond);
+          }
+        }, 1000);
       }
-    }, 1000);
+    } else {
+      // isPlaying が false になったら確実に停止
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    }
 
-    return () => clearInterval(interval);
-  }, [isPlaying]);
+    // アンマウント時の保険
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [isPlaying, ratePerSecond]);
 };
 
 export default useAutoDecreaseMoney;

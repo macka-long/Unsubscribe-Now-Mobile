@@ -23,7 +23,6 @@ const Contents: React.FC = () => {
     loadInterstitial();
   }, []);
   const handleBack = async () => {
-    // loadInterstitial();
     showInterstitial();
     history.goBack();
   };

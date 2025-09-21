@@ -11,6 +11,7 @@ import CustomBackButton from "../../../components/CustomBackButton";
 import { useGameStore } from "../../../store/gameStore";
 import { useHistory } from "react-router";
 // import { useTotalLoss } from "../../../hooks/useTotalLoss";
+import AdNativeWrapper from "../../../components/AdNativeWrapper";
 
 const Confirm: React.FC = () => {
   const currentStage = useGameStore((s) => s.selectedStage);
@@ -27,12 +28,16 @@ const Confirm: React.FC = () => {
   const onUnsubscribe = () => {
     setIsClear(true);
     // endGame();
-    // // eslint-disable-next-line react-hooks/rules-of-hooks
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     // const totalLoss = useTotalLoss(beforeStartMoney);
     // history.replace("/result", {
     //   isSuccess: true,
     //   totalLoss: totalLoss,
     // });
+  };
+
+  const onClickQuestionnaire = () => {
+    history.push("/stages/2/questionnaire");
   };
 
   return (
@@ -69,6 +74,43 @@ const Confirm: React.FC = () => {
           本当に退会しますか？
         </p>
 
+        <p
+          style={{
+            fontSize: "1.5rem",
+            lineHeight: "1.8",
+            color: "red",
+          }}
+        >
+          アンケートにご協力のお願い
+        </p>
+        <p
+          style={{
+            fontSize: "1.1rem",
+            lineHeight: "1.8",
+            marginBottom: "2rem",
+          }}
+        >
+          私たちは、みなさまの日常生活をより豊かにするために、本サイトの改善に努めています。
+          この度、今後のサイトサービス向上に向けた貴重なご意見を賜りたく、「アンケート」を実施させていただきます。
+        </p>
+
+        <IonText
+          color="primary"
+          style={{
+            textDecoration: "underline",
+            cursor: "pointer",
+            fontSize: "0.9rem",
+          }}
+          onClick={onClickQuestionnaire}
+        >
+          アンケートに答える
+        </IonText>
+
+        <AdNativeWrapper />
+        <br />
+        <br />
+        <br />
+        <br />
         <IonText
           color="primary"
           style={{
@@ -80,6 +122,9 @@ const Confirm: React.FC = () => {
         >
           退会する
         </IonText>
+        <br />
+        <br />
+        <br />
       </IonContent>
     </IonPage>
   );

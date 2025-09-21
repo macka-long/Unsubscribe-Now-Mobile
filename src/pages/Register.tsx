@@ -19,7 +19,7 @@ const RegisterPage: React.FC = () => {
   const currentStage = useGameStore((s) => s.selectedStage);
   const setBeforeStartMoney = useGameStore((s) => s.setBeforeStartMoney);
   const currentMoney = useMoneyStore((s) => s.money);
-  const startGame = useGameStore((s) => s.startGame);
+  // const startGame = useGameStore((s) => s.startGame);
 
   const handleRegister = () => {
     if (!validateLoginId(loginId)) {
@@ -32,7 +32,9 @@ const RegisterPage: React.FC = () => {
       return;
     }
     if (loginId && password) {
-      startGame();
+      const rate = currentStage?.ratePerSecond ? currentStage.ratePerSecond : 0;
+      useGameStore.getState().startGame(rate);
+
       setBeforeStartMoney(currentMoney);
       const stageId = currentStage?.id;
 
