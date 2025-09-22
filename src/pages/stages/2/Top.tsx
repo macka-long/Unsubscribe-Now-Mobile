@@ -23,6 +23,7 @@ const Top: React.FC = () => {
 
   useEffect(() => {
     console.log("isClearの変化 : " + isClear);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const totalLoss = useTotalLoss(beforeStartMoney);
     console.log("totalLoss" + totalLoss);
     if (isClear != null) {
@@ -72,9 +73,7 @@ const Top: React.FC = () => {
 
         <SiteMenu
           onClickContents={() => history.push("/stages/1/contents")}
-          onClickMyPage={() => {
-            return null;
-          }}
+          onClickMyPage={() => history.push("/stages/1/mypage")}
           onClickTerms={() =>
             history.push("/stages/1/terms", {
               ratePerSecond: stage?.ratePerSecond,
