@@ -3,6 +3,7 @@ import {
   LazyStage1Confirm,
   LazyStage1Contents,
   LazyStage1Login,
+  LazyStage1MyPage,
   LazyStage1Top,
   LazyStage2Confirm,
   LazyStage2Questionnaire,
@@ -27,6 +28,7 @@ export const stageRoutes: StageRouteMap = {
     { path: "confirm", component: LazyStage1Confirm },
     { path: "terms", component: LazyStageTerms },
     { path: "login", component: LazyStage1Login },
+    { path: "mypage", component: LazyStage1MyPage },
   ],
   "2": [
     { path: "", component: LazyStage2Top },

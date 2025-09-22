@@ -1,4 +1,4 @@
-import { IonPage, IonContent, IonText, IonButton } from "@ionic/react";
+import { IonPage, IonContent, IonText } from "@ionic/react";
 import { useHistory } from "react-router-dom";
 import CurrentMoneyDisplay from "../components/CurrentMoneyDisplay";
 // import { useMoneyStore } from "../store/moneyStore";
