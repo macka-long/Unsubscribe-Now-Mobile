@@ -7,4 +7,5 @@ build
 .git
 .gitignore
 Dockerfile
+resources
 docker-compose.yml
