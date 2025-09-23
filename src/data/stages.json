@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "title": "なんかのサイトVer1.0",
+    "genre": "漫画",
+    "theme": "pop",
+    "ratePerSecond": 550
+  },
+  {
+    "id": 2,
+    "title": "なんかのサイトVer1.1",
+    "genre": "漫画",
+    "theme": "pop",
+    "ratePerSecond": 600
+  },
+  {
+    "id": 3,
+    "title": "なんかのサイトVer1.2",
+    "genre": "漫画",
+    "theme": "pop",
+    "ratePerSecond": 550
+  },
+    {
+    "id": 4,
+    "title": "なんかのサイトVer1.3",
+    "genre": "漫画",
+    "theme": "pop",
+    "ratePerSecond": 700
+  },
+      {
+    "id": 5,
+    "title": "なんかのサイトVer1.4",
+    "genre": "漫画",
+    "theme": "pop",
+    "ratePerSecond": 700
+  }
+]
