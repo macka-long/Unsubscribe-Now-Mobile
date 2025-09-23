@@ -12,6 +12,9 @@ import {
   LazyStage3Top,
   LazyStage4MyPage,
   LazyStage4Top,
+  LazyStage5Confirm,
+  LazyStage5Login,
+  LazyStage5Top,
   LazyStageTerms,
 } from "./lazyComponents";
 
@@ -44,5 +47,10 @@ export const stageRoutes: StageRouteMap = {
   "4": [
     { path: "", component: LazyStage4Top },
     { path: "mypage", component: LazyStage4MyPage },
+  ],
+  "5": [
+    { path: "", component: LazyStage5Top },
+    { path: "confirm", component: LazyStage5Confirm },
+    { path: "login", component: LazyStage5Login },
   ],
 };

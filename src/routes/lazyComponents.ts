@@ -32,3 +32,12 @@ export const LazyStage3Confirm = lazy(
 // Stage4
 export const LazyStage4Top = lazy(() => import("../pages/stages/4/Top"));
 export const LazyStage4MyPage = lazy(() => import("../pages/stages/4/MyPage"));
+
+// Stage5
+export const LazyStage5Top = lazy(() => import("../pages/stages/5/Top"));
+export const LazyStage5Confirm = lazy(
+  () => import("../pages/stages/5/Confirm")
+);
+export const LazyStage5Login = lazy(
+  () => import("../pages/stages/5/LoginPage")
+);
