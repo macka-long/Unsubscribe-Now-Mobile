@@ -27,24 +27,40 @@ const formatDate = (timestamp: number | null) => {
   return `${hours}:${minutes}:${seconds}`;
 };
 
+function formatLastUpdatedDate(timestamp: number): string {
+  const date = new Date(timestamp);
+  const formatter = new Intl.DateTimeFormat("ja-JP", {
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false, // 24時間表記
+  });
+
+  // "MM/DD HH:MM" だけ欲しいので、部品を組み合わせる
+  const parts = formatter.formatToParts(date);
+  const month = parts.find((p) => p.type === "month")?.value || "";
+  const day = parts.find((p) => p.type === "day")?.value || "";
+  const hour = parts.find((p) => p.type === "hour")?.value || "";
+  const minute = parts.find((p) => p.type === "minute")?.value || "";
+
+  return `${month}/${day} ${hour}:${minute}`;
+}
+
 const GameTopScreen: React.FC = () => {
   const history = useHistory();
   useAutoMoney();
 
-  const addOfflineEarnings = useMoneyStore((s) => s.addOfflineEarnings);
-  useEffect(() => {
-    addOfflineEarnings(); // 差分加算
-  }, []);
+  // const addOfflineEarnings = useMoneyStore((s) => s.addOfflineEarnings);
+  // useEffect(() => {
+  //   addOfflineEarnings(); // 差分加算
+  // }, []);
 
   const [showRewardAd, setShowRewardAd] = useState(false);
   const isElapsedRewardInterval = useRewardStore(
     (s) => s.isElapsedRewardInterval
   );
-
-  const remainTime = useRewardStore((s) => s.remainTime);
-
   const [isEnableRewardAnchor, setIsEnableRewardAnchor] = useState(true);
-
   useEffect(() => {
     // 初期評価
     setIsEnableRewardAnchor(isElapsedRewardInterval());
@@ -73,7 +89,10 @@ const GameTopScreen: React.FC = () => {
   };
 
   const money = useMoneyStore((state) => state.money);
+  const lastUpdated = useMoneyStore((s) => s.lastUpdated);
   const resetMoney = useMoneyStore((state) => state.resetMoney);
+  const remainTime = useRewardStore((s) => s.remainTime);
+
   return (
     <IonPage>
       <IonContent className="ion-padding" fullscreen>
@@ -105,6 +124,10 @@ const GameTopScreen: React.FC = () => {
               }}
             >
               {money.toLocaleString()}円
+            </p>
+            <p>
+              最終更新日時 :{" "}
+              {formatLastUpdatedDate(lastUpdated ? lastUpdated : 0)}
             </p>
             <ul>
               <li>5分経過で5,000円貯まります</li>
